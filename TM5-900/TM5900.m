@@ -33,6 +33,12 @@ classdef TM5900 < RobotBaseClass
             self.model.tool = self.toolTr;
             self.PlotAndColourRobot();
             drawnow
+
+            % Initial joint configuration (home position or any valid starting position)
+            q = zeros(1, length(self.model.links)); % Zero position for all joints
+
+            % Invoke the teach function for interactive control
+            self.model.teach(q);  % Use the teach panel to move the robot
         end
 
 %% CreateModel
@@ -51,6 +57,9 @@ classdef TM5900 < RobotBaseClass
             % link(5) = Link('d',0.1157,'a',0,'alpha',-pi/2,'qlim',deg2rad([-360,360]), 'offset',0);
             % link(6) = Link('d',0.09037,'a',0,'alpha',0,'qlim',deg2rad([-360,360]), 'offset', 0);
             
+            link(2).offset = -pi/2;
+            link(4).offset = pi/2;
+
             self.model = SerialLink(link,'name',self.name);
         end
     end

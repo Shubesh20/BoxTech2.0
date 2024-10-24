@@ -34,11 +34,11 @@ classdef TM5900 < RobotBaseClass
             self.PlotAndColourRobot();
             drawnow
 
-            % Initial joint configuration (home position or any valid starting position)
-            q = zeros(1, length(self.model.links)); % Zero position for all joints
-
-            % Invoke the teach function for interactive control
-            self.model.teach(q);  % Use the teach panel to move the robot
+            % % Initial joint configuration (home position or any valid starting position)
+            % q = zeros(1, length(self.model.links)); % Zero position for all joints
+            % 
+            % % Invoke the teach function for interactive control
+            % self.model.teach(q);  % Use the teach panel to move the robot
         end
 
 %% CreateModel
@@ -50,12 +50,19 @@ classdef TM5900 < RobotBaseClass
             link(5) = Link('d',0.106,'a',0,'alpha',-pi/2,'qlim',deg2rad([-360,360]), 'offset',0);
             link(6) = Link('d',0.113,'a',0,'alpha',0,'qlim',deg2rad([-360,360]), 'offset', 0);
 
-            % link(1) = Link('d',0.128,'a',0,'alpha',pi/2,'qlim',deg2rad([-360 360]), 'offset', 0);
-            % link(2) = Link('d',0,'a',-0.6127,'alpha',0,'qlim', deg2rad([-360 360]), 'offset',0);
-            % link(3) = Link('d',0,'a',-0.5716,'alpha',0,'qlim', deg2rad([-360 360]), 'offset', 0);
-            % link(4) = Link('d',0.16389,'a',0,'alpha',pi/2,'qlim',deg2rad([-360 360]),'offset', 0);
-            % link(5) = Link('d',0.1157,'a',0,'alpha',-pi/2,'qlim',deg2rad([-360,360]), 'offset',0);
-            % link(6) = Link('d',0.09037,'a',0,'alpha',0,'qlim',deg2rad([-360,360]), 'offset', 0);
+            
+            link(1).qlim = [10 90]*pi/180;
+            % % link(1).qlim = [-360 360]*pi/180;
+            % % link(2).qlim = [-70 70]*pi/180;
+
+            link(2).qlim = [0 45]*pi/180; % 0 45 OG
+            link(3).qlim = [0 160]*pi/180;
+            
+            
+            % link(3).qlim = [57 145]*pi/180;
+            % link(4).qlim = [-251 -149]*pi/180;
+            % link(5).qlim = [260 300]*pi/180;
+            % link(6).qlim = [260 300]*pi/180;  
             
             link(2).offset = -pi/2;
             link(4).offset = pi/2;

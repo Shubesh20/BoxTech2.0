@@ -6,7 +6,7 @@ hold on;
 
 %% PLACEMENT OF OBJECTS:
 
-PlaceObject('MAINoENVIRONMENTDraft.ply', [0, 0, 0]);  
+PlaceObject('Environment.ply', [0, 0, 0]);  
 
 % ROBOT - LINEAR UR5 SETUP :
 % baseTr = transl([-0.35, 0.15, 0.6]) * trotz(-pi/2);                              % Base transform of the robot to be on top of the table 
@@ -35,7 +35,7 @@ for c = 1:12
     brick{c} = PlaceObject('Shoebox.ply'); 
     % Iterating the position of each brick alongside each other on one side of the robot
     vertices{c} = get(brick{c},'Vertices');
-    transformedVertices = [vertices{c},ones(size(vertices{c},1),1)] * trotz(pi/2) * transl(0.82,0.35,0.6)';%change to move brick
+    transformedVertices = [vertices{c},ones(size(vertices{c},1),1)] * trotz(pi/2) * transl(0.7,0.35,0.6)';%change to move brick
     set(brick{c},'Vertices',transformedVertices(:,1:3));
 end
 
@@ -196,10 +196,10 @@ for j = 1:12
     % Compute the inverse kinematics for the brick position
   %ikcon - optimisation method and considers joint limits
             if j == 12 %loop for 9 bricks
-            [bpos,err,exitflag] = r.model.ikcon(transl(0.82,0.45,0.75) * troty(pi)); %bandaid fix :D ,[-j/10,pi/2,pi/4,pi/4,0,-pi/4,0]
+            [bpos,err,exitflag] = r.model.ikcon(transl(0.73,0.5,0.75) * troty(pi) * trotz(pi/2)); %bandaid fix :D ,[-j/10,pi/2,pi/4,pi/4,0,-pi/4,0], (0.7,0.47,0.75)
 
             else
-            [bpos,err,exitflag] = r.model.ikcon(transl(0.82,0.45,0.75) * troty(pi)); %change to move brick ,[-j/10,pi/2,pi/4,pi/4,0,pi/4,0]
+            [bpos,err,exitflag] = r.model.ikcon(transl(0.73,0.5,0.75) * troty(pi) * trotz(pi/2)); %change to move brick ,[-j/10,pi/2,pi/4,pi/4,0,pi/4,0], (0.7,0.47,0.75)
 
             end
 
@@ -243,17 +243,17 @@ brickintz = 0.95;%set the base z co-ordinate
         
 %finding the IKcon for the second brick placement, and iterating XYZ co-ordinates
        case 2
-        fprintf('Brick 12 moving \n')%Log message
-        FinalBrickPos = r.model.ikcon(transl((brickintx + 0.27),brickinty,brickintz) * troty(-pi) * trotz(pi/2),[0,3*pi/2,0,-pi/2,0,-3*pi/2,0]);
-        
+        fprintf('Brick 2 moving \n')%Log message
+        FinalBrickPos = r.model.ikcon(transl((brickintx + 0.27),brickinty,brickintz) * troty(-pi) * trotz(pi/2),[0,3*pi/2,0,-pi/2,0,-3*pi/2,0]); %
+         
 %finding the IKcon for the third brick placement, and iterating XYZ co-ordinates
        case 3
-        fprintf('Brick 12 moving \n')%Log message
-        FinalBrickPos = r.model.ikcon(transl((brickintx + 0.54),brickinty,brickintz) * troty(-pi) * trotz(pi/2),[0,3*pi/2,0,-pi/2,0,-3*pi/2,0]);
+        fprintf('Brick 3 moving \n')%Log message
+        FinalBrickPos = r.model.ikcon(transl((brickintx + 0.54),brickinty,brickintz) * troty(-pi) * trotz(pi/2),[0,3*pi/2,0,-pi/2,0,-3*pi/2,0]); %
         
 %finding the IKcon for the fourth brick placement, and iterating XYZ co-ordinates
     case 4
-        fprintf('Brick 12 moving \n')%Log message
+        fprintf('Brick 4 moving \n')%Log message
         FinalBrickPos = r.model.ikcon(transl((brickintx + 0.81),brickinty,brickintz) * troty(-pi) * trotz(pi/2),[0,3*pi/2,0,-pi/2,0,-3*pi/2,0]);
         
 %finding the IKcon for the fifth brick placement, and iterating XYZ co-ordinates
@@ -279,7 +279,7 @@ brickintz = 0.95;%set the base z co-ordinate
 %finding the IKcon for the ninth brick placement, and iterating XYZ co-ordinates
     case 9
         fprintf('Brick 9 moving \n')%Log message
-        FinalBrickPos = r.model.ikcon(transl((brickintx + 0.54),brickinty,(brickintz + 0.41)) * troty(-pi) * trotz(pi/2),[0,3*pi/2,0,-pi/2,0,-3*pi/2,0]);
+        FinalBrickPos = r.model.ikcon(transl((brickintx + 0.54),brickinty,(brickintz + 0.41)) * troty(-pi) * trotz(pi/2),[0,-pi/2,-pi/4,-pi/4,0,-pi/4,0]);
 
 %finding the IKcon for the ninth brick placement, and iterating XYZ co-ordinates
     case 10
@@ -294,7 +294,7 @@ brickintz = 0.95;%set the base z co-ordinate
 %finding the IKcon for the ninth brick placement, and iterating XYZ co-ordinates
     case 12
         fprintf('Brick 12 moving \n')%Log message
-        FinalBrickPos = r.model.ikcon(transl((brickintx + 1.32),brickinty,(brickintz + 0.41)) * troty(-pi) * trotz(pi/2),[0,3*pi/2,0,-pi/2,0,-3*pi/2,0]);
+        FinalBrickPos = r.model.ikcon(transl((brickintx + 1.32),brickinty,(brickintz + 0.41)) * troty(-pi) * trotz(pi/2),[0,-pi/2,-pi/4,-pi/4,0,-pi/4,0]);
 
    end
 

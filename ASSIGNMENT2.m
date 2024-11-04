@@ -260,17 +260,17 @@ end
 % OMRON TM5 900
 function OmronCheckCollision(f, obstacle_vertices)     
   tr = f.model.fkine(f.model.getpos).T;                                       % Get the current pose of the robot   
-    
+
   % Loop through each vertex of the obstacle   
   for i = 1:size(obstacle_vertices, 1)         
     dist = sqrt(sum((obstacle_vertices(i, :) - tr(1:3, 4)').^2));             % Calculate the distance between the end effector and the vertex 
-      
+
     % Check if the distance is less than a certain threshold (e.g. 0.1m)   
     if dist <= 0.15  
       disp('OMRON - Collision detected!');      
 
       % pauseSimulation();                                                    % Pauses the simulation : UNCOMMENT TO ACTIVATE PAUSING IN A COLLISION
-    
+
     end   
   end   
 end
@@ -296,8 +296,8 @@ end
 
 
 
-%% ATTEMPT FOR COLLISION AVOIDANCE - OMRON TM5 900
-
+% %% ATTEMPT FOR COLLISION AVOIDANCE - OMRON TM5 900
+% 
 % function OmronCheckCollision(f, obstacle_vertices)
 % tr = f.model.fkine(f.model.getpos).T;
 % 
